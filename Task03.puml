@@ -1,0 +1,75 @@
+@startuml
+class Forest {
+    - WIDTH: int
+    - HEIGHT: int
+    - items: Map<Position, Item>
+    - player: AbstractMoveableItem
+    - hunter: AbstractMoveableItem
+    - home: AbstractMoveableItem
+    + addItem(Item, Position): void
+    + movePlayer(Position): void
+    + getGamePlan(): String
+}
+
+class Position {
+    - x: int
+    - y: int
+    + move(Position): void
+    + equals(Object): boolean
+    + hashCode(): int
+}
+
+interface Item {
+    + getDescription(): String
+    + getGraphic(): String
+}
+
+abstract class AbstractItem implements Item {
+    - description: String
+    - graphic: String
+    + getDescription(): String
+    + getGraphic(): String
+}
+
+class FirTree {
+    + getDescription(): String
+    + getGraphic(): String
+}
+
+class Rock {
+    + getDescription(): String
+    + getGraphic(): String
+}
+
+interface Moveable {
+    + getPosition(): Position
+}
+
+abstract class AbstractMoveableItem implements Moveable {
+    - position: Position
+    + getPosition(): Position
+}
+
+class Robot {
+    + getPosition(): Position
+}
+
+class Wolf {
+    + getPosition(): Position
+}
+
+class Castle {
+    + getPosition(): Position
+}
+
+Forest --> Position
+Forest --> Item
+Position --> Position : moves
+AbstractItem <|-- FirTree
+AbstractItem <|-- Rock
+AbstractMoveableItem <|-- Robot
+AbstractMoveableItem <|-- Wolf
+AbstractMoveableItem <|-- Castle
+Item <|.. AbstractItem
+Moveable <|.. AbstractMoveableItem
+@enduml
